@@ -1,6 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c7gqn3pkx6gpp"]
+[gd_scene load_steps=10 format=3 uid="uid://c7gqn3pkx6gpp"]
 
 [ext_resource type="Texture2D" uid="uid://doapxmhc10s73" path="res://assets/enemy/Ship6/Ship6.png" id="1_t3swx"]
+[ext_resource type="Script" uid="uid://bvcokfns8ytk2" path="res://scripts/enemy_6.gd" id="1_u0f2w"]
+[ext_resource type="PackedScene" uid="uid://divjny82w8yty" path="res://scenes/death_explosion.tscn" id="2_jv3bd"]
 [ext_resource type="Texture2D" uid="uid://cfr83tcsacecp" path="res://assets/enemy/Ship6/Exhaust/Turbo_flight/Exhaust1/exhaust1.png" id="2_nl5s5"]
 [ext_resource type="Texture2D" uid="uid://ceqq566gime6y" path="res://assets/enemy/Ship6/Exhaust/Turbo_flight/Exhaust1/exhaust2.png" id="3_u0f2w"]
 [ext_resource type="Texture2D" uid="uid://c0ei2dm3dh0dp" path="res://assets/enemy/Ship6/Exhaust/Turbo_flight/Exhaust1/exhaust3.png" id="4_jv3bd"]
@@ -32,6 +34,8 @@ animations = [{
 
 [node name="enemy6" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
+script = ExtResource("1_u0f2w")
+death_animation_scene = ExtResource("2_jv3bd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_t3swx")
@@ -44,7 +48,7 @@ shape = SubResource("CapsuleShape2D_0ji7c")
 [node name="BulletSpawn" type="Node2D" parent="."]
 position = Vector2(-43, 0)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Exhaust" type="AnimatedSprite2D" parent="."]
 z_index = -1
 position = Vector2(62, -1.5)
 scale = Vector2(2, 2)

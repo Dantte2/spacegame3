@@ -151,6 +151,9 @@ stationary_enemies = Array[PackedScene]([])
 [node name="enemy6" parent="." instance=ExtResource("13_vf3rk")]
 position = Vector2(1647, 479)
 
+[node name="enemy1" parent="." instance=ExtResource("7_t48sv")]
+position = Vector2(1769, 150)
+
 [connection signal="pressed" from="debugcanvas/respawnbutton" to="debugcanvas" method="_on_respawnbutton_pressed"]
 [connection signal="pressed" from="debugcanvas/damageshieldbutton" to="debugcanvas" method="_on_damageshieldbutton_pressed"]
 

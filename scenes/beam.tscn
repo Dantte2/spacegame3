@@ -78,6 +78,12 @@ lifetime = 0.3
 process_material = SubResource("ParticleProcessMaterial_8wlve")
 
 [node name="BeamParticles2D" parent="." instance=ExtResource("3_daiji")]
+visible = false
+position = Vector2(884, 0)
+scale = Vector2(1.2902663, 0.32615036)
+amount = 20
+one_shot = false
+trail_enabled = false
 
 [node name="CollisionParticles2D" type="GPUParticles2D" parent="."]
 emitting = false
