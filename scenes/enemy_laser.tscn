@@ -1,23 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://2cp7mkucw1cr"]
+[gd_scene load_steps=5 format=3 uid="uid://2cp7mkucw1cr"]
 
 [ext_resource type="Script" uid="uid://c2buk0yhxro50" path="res://scripts/enemy_laser.gd" id="1_iyr3e"]
-[ext_resource type="Shader" uid="uid://corjy3ln1knao" path="res://shaders/enemy_laser.gdshader" id="2_x6ppl"]
-[ext_resource type="Texture2D" uid="uid://btpdp5vi3nyeu" path="res://assets/projectiles/bullets/14.png" id="3_x6ppl"]
+[ext_resource type="Texture2D" uid="uid://cxxdoktc3pnor" path="res://assets/projectiles/bullets/02.png" id="3_x6ppl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x6ppl"]
 radius = 4.0
 height = 44.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m3ht5"]
-shader = ExtResource("2_x6ppl")
-shader_parameter/color1 = Vector4(1, 1, 1, 1)
-shader_parameter/color2 = Vector4(1, 1, 1, 1)
-shader_parameter/threshold = 0.1
-shader_parameter/intensity = 3.0
-shader_parameter/opacity = 1.0
-shader_parameter/glow_color = Vector4(0, 1, 1, 1)
-shader_parameter/time = 0.0
-shader_parameter/pulse_speed = 5.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_c1p5m"]
 animations = [{
@@ -39,7 +27,6 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_x6ppl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_m3ht5")
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_c1p5m")
 frame_progress = 0.7164564

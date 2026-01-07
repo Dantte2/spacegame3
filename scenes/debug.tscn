@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bg0nh4fulwty8" path="res://scenes/enemy_1.tscn" id="7_t48sv"]
 [ext_resource type="Texture2D" uid="uid://bgaxwnigmbuxe" path="res://assets/ui/bars/04.png" id="9_5ph7u"]
 [ext_resource type="PackedScene" uid="uid://dqpfyunvt0ypa" path="res://scenes/enemy_spawner.tscn" id="12_05sef"]
-[ext_resource type="PackedScene" uid="uid://c7gqn3pkx6gpp" path="res://scenes/enemy_6.tscn" id="13_vf3rk"]
+[ext_resource type="PackedScene" uid="uid://qy4dmmwesp4w" path="res://scenes/enemy_5.tscn" id="13_vf3rk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o7ao6"]
 atlas = ExtResource("9_5ph7u")
@@ -65,6 +65,7 @@ offset_bottom = 66.0
 script = ExtResource("3_naxnx")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+visible = false
 script = ExtResource("4_05sef")
 
 [node name="sky" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -144,15 +145,8 @@ texture_progress = SubResource("AtlasTexture_vf3rk")
 environment = SubResource("Environment_5ph7u")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("12_05sef")]
-position = Vector2(1779, 482)
-enemy1_group = Array[PackedScene]([])
-stationary_enemies = Array[PackedScene]([])
-
-[node name="enemy6" parent="." instance=ExtResource("13_vf3rk")]
-position = Vector2(1647, 479)
-
-[node name="enemy1" parent="." instance=ExtResource("7_t48sv")]
-position = Vector2(1769, 150)
+position = Vector2(20, 2)
+stationary_enemies = Array[PackedScene]([ExtResource("13_vf3rk")])
 
 [connection signal="pressed" from="debugcanvas/respawnbutton" to="debugcanvas" method="_on_respawnbutton_pressed"]
 [connection signal="pressed" from="debugcanvas/damageshieldbutton" to="debugcanvas" method="_on_damageshieldbutton_pressed"]

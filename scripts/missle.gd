@@ -108,7 +108,7 @@ func _physics_process(delta):
                 if hit and hit.is_in_group("enemy"):
                     explode()
                     if hit.has_method("take_damage"):
-                        hit.take_damage(10)
+                        hit.take_damage(50)
 
     # Exhaust shader update
     if exhaust and exhaust.visible:
