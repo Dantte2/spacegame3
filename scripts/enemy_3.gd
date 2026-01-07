@@ -28,12 +28,14 @@ var fire_timer := 0.0
 
 func _ready():
     health = max_health
+    # Randomize starting vertical direction: either up (-1) or down (1)
+    direction = 1 if randi() % 2 == 0 else -1
 
 func _physics_process(delta):
     # Movement
     position.y += direction * vertical_speed * delta
 
-    # Bounce top/bottom
+    # Bounce off top/bottom
     var viewport_height = get_viewport_rect().size.y
     if position.y >= viewport_height:
         position.y = viewport_height

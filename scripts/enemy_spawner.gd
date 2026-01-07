@@ -38,6 +38,16 @@ extends Node2D
 @export var stationary_wave_delay_max: float = 12.0      # Max delay between stationary enemy waves
 
 # ==========================
+# --- Moving Enemy Wave Settings ---
+# ==========================
+@export var moving_wave_delay_min: float = 10.0      # Min delay between moving enemy waves
+@export var moving_wave_delay_max: float = 20.0      # Max delay between moving enemy waves
+@export var moving_spawn_count_min: int = 1         # Min enemies per wave
+@export var moving_spawn_count_max: int = 3         # Max enemies per wave
+@export var moving_spawn_interval_min: float = 0.2  # Min delay between enemies in the wave
+@export var moving_spawn_interval_max: float = 0.5  # Max delay between enemies in the wave
+
+# ==========================
 # --- Nodes ---
 # ==========================
 @onready var template_portal: AnimatedSprite2D = $Portal
@@ -53,7 +63,7 @@ func _ready() -> void:
     # Start spawning loops for each enemy group
     call_deferred("_start_enemy1_waves")
     call_deferred("_spawn_stationary_enemy_waves")
-    call_deferred("_spawn_moving_enemies")
+    call_deferred("_start_moving_enemy_waves")
 
 # ==========================
 # --- Enemy1 Wave Loop ---
@@ -107,12 +117,20 @@ func _spawn_stationary_enemy_at_corner(center: Vector2, area_size: Vector2) -> v
 # ==========================
 # --- Moving Enemies ---
 # ==========================
-func _spawn_moving_enemies() -> void:
-    for enemy_scene in moving_enemies:
-        if not spawner_enabled:
-            return
-        await get_tree().create_timer(randf_range(spawn_interval_min, spawn_interval_max)).timeout
-        await _spawn_enemy_with_portal(enemy_scene)
+func _start_moving_enemy_waves() -> void:
+    while moving_enemies.size() > 0 and spawner_enabled:
+        var enemy_scene = moving_enemies[randi() % moving_enemies.size()]
+
+        # Spawn configurable number of enemies per wave
+        var spawn_count = randi_range(moving_spawn_count_min, moving_spawn_count_max)
+        for i in range(spawn_count):
+            if not spawner_enabled:
+                return
+            await _spawn_enemy_with_portal(enemy_scene)
+            await get_tree().create_timer(randf_range(moving_spawn_interval_min, moving_spawn_interval_max)).timeout
+
+        # Wait before next wave
+        await get_tree().create_timer(randf_range(moving_wave_delay_min, moving_wave_delay_max)).timeout
 
 # ==========================
 # --- Random Spawn Position ---

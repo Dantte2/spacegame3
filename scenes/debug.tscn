@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dw2p8f653avv2"]
+[gd_scene load_steps=21 format=3 uid="uid://dw2p8f653avv2"]
 
 [ext_resource type="Texture2D" uid="uid://nrn1osh04ht5" path="res://assets/background/forest 1920x1080/forest_sky.png" id="1_kayp2"]
 [ext_resource type="Script" uid="uid://bg6ib4nrexb48" path="res://scripts/debugcanvas.gd" id="1_svo7y"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://bgaxwnigmbuxe" path="res://assets/ui/bars/04.png" id="9_5ph7u"]
 [ext_resource type="PackedScene" uid="uid://dqpfyunvt0ypa" path="res://scenes/enemy_spawner.tscn" id="12_05sef"]
 [ext_resource type="PackedScene" uid="uid://qy4dmmwesp4w" path="res://scenes/enemy_5.tscn" id="13_vf3rk"]
+[ext_resource type="PackedScene" uid="uid://bpkiveafyhfog" path="res://scenes/enemy_3.tscn" id="14_oydge"]
+[ext_resource type="PackedScene" uid="uid://deruu8hgkc3j8" path="res://scenes/enemy_4.tscn" id="15_pleq2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o7ao6"]
 atlas = ExtResource("9_5ph7u")
@@ -147,6 +149,7 @@ environment = SubResource("Environment_5ph7u")
 [node name="EnemySpawner" parent="." instance=ExtResource("12_05sef")]
 position = Vector2(20, 2)
 stationary_enemies = Array[PackedScene]([ExtResource("13_vf3rk")])
+moving_enemies = Array[PackedScene]([ExtResource("14_oydge"), ExtResource("15_pleq2")])
 
 [connection signal="pressed" from="debugcanvas/respawnbutton" to="debugcanvas" method="_on_respawnbutton_pressed"]
 [connection signal="pressed" from="debugcanvas/damageshieldbutton" to="debugcanvas" method="_on_damageshieldbutton_pressed"]
