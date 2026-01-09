@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dqpfyunvt0ypa" path="res://scenes/enemy_spawner.tscn" id="12_05sef"]
 [ext_resource type="PackedScene" uid="uid://qy4dmmwesp4w" path="res://scenes/enemy_5.tscn" id="13_vf3rk"]
 [ext_resource type="PackedScene" uid="uid://bpkiveafyhfog" path="res://scenes/enemy_3.tscn" id="14_i54yb"]
-[ext_resource type="PackedScene" uid="uid://deruu8hgkc3j8" path="res://scenes/enemy_4.tscn" id="15_pleq2"]
+[ext_resource type="PackedScene" uid="uid://c7gqn3pkx6gpp" path="res://scenes/enemy_6.tscn" id="15_pleq2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o7ao6"]
 atlas = ExtResource("9_5ph7u")
@@ -148,14 +148,13 @@ environment = SubResource("Environment_5ph7u")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("12_05sef")]
 position = Vector2(20, 2)
-enemy_scenes = Array[PackedScene]([ExtResource("7_t48sv"), ExtResource("13_vf3rk"), ExtResource("14_i54yb"), ExtResource("15_pleq2")])
-max_total_spawns = Array[int]([30, 10, 10, 10, 0, 0])
-spawn_intervals = Array[float]([1.0, 5.0, 10.0, 15.0, 1.5, 1.0])
-enemy1_stagger_min = 1.5
+enemy_scenes = Array[PackedScene]([ExtResource("7_t48sv"), ExtResource("13_vf3rk"), ExtResource("14_i54yb")])
 top_spawn_points = Array[Vector2]([Vector2(1640, 116), Vector2(1792, 393), Vector2(1798, 622), Vector2(1449, 664), Vector2(1672, 397), Vector2(1780, 271), Vector2(1780, 131), Vector2(1803, 733), Vector2(1703, 590), Vector2(1775, 516), Vector2(1495, 137), Vector2(1572, 650), Vector2(1783, 873), Vector2(1495, 784), Vector2(1652, 208), Vector2(1495, 510), Vector2(1512, 302), Vector2(1663, 764), Vector2(1621, 916), Vector2(1501, 921)])
 right_corners = Array[Vector2]([Vector2(1820, 130), Vector2(1750, 130), Vector2(1820, 160), Vector2(1750, 160), Vector2(1780, 140), Vector2(1850, 950), Vector2(1750, 950), Vector2(1750, 900), Vector2(1850, 900), Vector2(1785, 943)])
-back_line_points = Array[Vector2]([Vector2(1820, 488), Vector2(1803, 877), Vector2(1818, 177), Vector2(1813, 632), Vector2(1801, 717), Vector2(1820, 347)])
-front_line_points = Array[Vector2]([Vector2(1544, 741), Vector2(1565, 660), Vector2(1580, 559), Vector2(1580, 436), Vector2(1572, 345), Vector2(1537, 264)])
+back_line_points = Array[Vector2]([Vector2(1820, 488)])
+
+[node name="enemy6" parent="." instance=ExtResource("15_pleq2")]
+position = Vector2(1755, 525)
 
 [connection signal="pressed" from="debugcanvas/respawnbutton" to="debugcanvas" method="_on_respawnbutton_pressed"]
 [connection signal="pressed" from="debugcanvas/damageshieldbutton" to="debugcanvas" method="_on_damageshieldbutton_pressed"]

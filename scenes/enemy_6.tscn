@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://c7gqn3pkx6gpp"]
+[gd_scene load_steps=12 format=3 uid="uid://c7gqn3pkx6gpp"]
 
 [ext_resource type="Script" uid="uid://bvcokfns8ytk2" path="res://scripts/enemy_6.gd" id="1_u0f2w"]
 [ext_resource type="PackedScene" uid="uid://divjny82w8yty" path="res://scenes/death_explosion.tscn" id="2_jv3bd"]
-[ext_resource type="PackedScene" uid="uid://b7jkty4tboc5s" path="res://scenes/firebullet.tscn" id="2_tbg1l"]
+[ext_resource type="PackedScene" uid="uid://dd13ab0r3hklj" path="res://scenes/enemy_missile.tscn" id="2_tbg1l"]
+[ext_resource type="PackedScene" uid="uid://b7jkty4tboc5s" path="res://scenes/firebullet.tscn" id="3_0ji7c"]
 [ext_resource type="Texture2D" uid="uid://du7kfu3jj6n68" path="res://assets/enemy/elite_enemy/1/Boss_ship3.png" id="3_jv3bd"]
 [ext_resource type="Texture2D" uid="uid://nakr3apb2pep" path="res://assets/enemy/bosses/exhaust/boss1/Level7_Turbo_001.png" id="4_tbg1l"]
 [ext_resource type="Texture2D" uid="uid://dsh6v8fhwmxfe" path="res://assets/enemy/bosses/exhaust/boss1/Level7_Turbo_003.png" id="5_0ji7c"]
@@ -36,7 +37,8 @@ animations = [{
 [node name="enemy6" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
 script = ExtResource("1_u0f2w")
-bullet_scene = ExtResource("2_tbg1l")
+missile_scene = ExtResource("2_tbg1l")
+bullet_scene = ExtResource("3_0ji7c")
 death_animation_scene = ExtResource("2_jv3bd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -56,3 +58,16 @@ position = Vector2(64, 7)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_i2pgm")
 frame_progress = 0.5694357
+
+[node name="raycast1" type="RayCast2D" parent="."]
+rotation = 3.1415927
+target_position = Vector2(1923, 0)
+collide_with_areas = true
+
+[node name="raycast2" type="RayCast2D" parent="."]
+rotation = 3.1415927
+target_position = Vector2(1920, 160)
+
+[node name="raycast3" type="RayCast2D" parent="."]
+rotation = 3.1415927
+target_position = Vector2(1920, -160)

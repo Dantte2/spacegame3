@@ -1,9 +1,10 @@
 extends Area2D
 
 @export var speed: float = 1000.0
+var velocity: Vector2 = Vector2.RIGHT  # direction bullet moves
+
 @export var damage_to_shield: int = 100
 @export var damage_to_health: int = 1
-var velocity: Vector2 = Vector2.RIGHT
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -11,7 +12,8 @@ func _ready():
     randomize()
 
     # ROTATE BULLET TO MATCH DIRECTION
-    rotation = velocity.angle()
+    if velocity != Vector2.ZERO:
+        rotation = velocity.angle()
 
     # Randomize starting frame
     if sprite:
@@ -26,11 +28,16 @@ func _ready():
     connect("area_entered", Callable(self, "_on_area_entered"))
     connect("body_entered", Callable(self, "_on_body_entered"))
 
-func _process(delta):
+func _physics_process(delta):
+    # Move bullet in its velocity direction
+    position -= velocity.normalized() * speed * delta
+
+    # Rotate to match velocity
     if velocity != Vector2.ZERO:
         rotation = velocity.angle()
-    position -= velocity * speed * delta
 
+func set_velocity(dir: Vector2):
+    velocity = dir.normalized()
 
 func _on_area_entered(area):
     _handle_hit(area)
@@ -45,6 +52,7 @@ func _handle_hit(target):
     if not player:
         return
 
+    # Damage applies to shield first
     if player.shield > 0:
         player.apply_shield_damage(damage_to_shield, global_position)
     else:

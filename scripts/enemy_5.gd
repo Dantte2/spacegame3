@@ -26,6 +26,9 @@ var can_fire := true
 @export var max_health: int = 150
 var health: int
 @export var death_animation_scene: PackedScene
+var running = true
+
+signal enemy_died
 
 # -----------------------------
 # READY
@@ -46,7 +49,7 @@ func _ready():
 # -----------------------------
 # PROCESS
 # -----------------------------
-func _process(delta):
+func _physics_process(_delta):
     # Find nearest player in "player" group
     var players = get_tree().get_nodes_in_group("player")
     if players.size() > 0:
@@ -146,6 +149,8 @@ func take_damage(amount: int):
         die()
 
 func die():
+    running = false
+    emit_signal("enemy_died")
     if death_animation_scene:
         var anim = death_animation_scene.instantiate()
         anim.global_position = global_position

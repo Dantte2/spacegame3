@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://dd13ab0r3hklj"]
+
+[ext_resource type="Texture2D" uid="uid://cw4tsjf2xt63a" path="res://assets/projectiles/missle/Missile02C.png" id="1_gc4k7"]
+[ext_resource type="Script" uid="uid://dtj7od5sdyoc0" path="res://scripts/enemy_missile.gd" id="1_ll73q"]
+[ext_resource type="Texture2D" uid="uid://nakr3apb2pep" path="res://assets/enemy/bosses/exhaust/boss1/Level7_Turbo_001.png" id="2_02t2w"]
+[ext_resource type="PackedScene" uid="uid://djd8g6h0hxqfk" path="res://scenes/flakboom.tscn" id="2_48q77"]
+[ext_resource type="Texture2D" uid="uid://dsh6v8fhwmxfe" path="res://assets/enemy/bosses/exhaust/boss1/Level7_Turbo_003.png" id="3_ll73q"]
+[ext_resource type="Texture2D" uid="uid://krx8kk8coth" path="res://assets/enemy/bosses/exhaust/boss1/Level7_Turbo_004.png" id="4_48q77"]
+[ext_resource type="Texture2D" uid="uid://cd6l0u7b3hi07" path="res://assets/enemy/bosses/exhaust/boss1/Level7_Turbo_005.png" id="5_fb0c7"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gc4k7"]
+height = 68.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s8soa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_02t2w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ll73q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_48q77")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_fb0c7")
+}],
+"loop": true,
+"name": &"exhaust",
+"speed": 15.0
+}]
+
+[node name="enemy_missile" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_ll73q")
+explosion_scene = ExtResource("2_48q77")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5707964
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_gc4k7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_gc4k7")
+
+[node name="Exhaust" type="AnimatedSprite2D" parent="."]
+z_index = -1
+position = Vector2(-46, 2)
+sprite_frames = SubResource("SpriteFrames_s8soa")
+animation = &"exhaust"
+autoplay = "exhaust"

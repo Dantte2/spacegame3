@@ -259,6 +259,7 @@ radius = 13.0
 height = 36.0
 
 [node name="firebullet" type="Area2D"]
+scale = Vector2(2, 2)
 collision_layer = 2
 script = ExtResource("1_i6tk6")
 
@@ -266,8 +267,7 @@ script = ExtResource("1_i6tk6")
 position = Vector2(-1, -4)
 sprite_frames = SubResource("SpriteFrames_b0cvd")
 autoplay = "default"
-frame = 41
-frame_progress = 0.10231135
+frame_progress = 0.7350048
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

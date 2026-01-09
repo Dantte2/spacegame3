@@ -25,6 +25,9 @@ var fire_timer := 0.0
 @onready var exhaust := $exhaust
 @onready var bullet_spawn := $BulletSpawn
 @export var death_animation_scene: PackedScene
+var running = true
+
+signal enemy_died
 
 func _ready():
     health = max_health
@@ -84,6 +87,8 @@ func take_damage(amount: int):
 
 
 func die():
+    running = false
+    emit_signal("enemy_died")
     if death_animation_scene:
         var anim = death_animation_scene.instantiate()
         anim.global_position = global_position
