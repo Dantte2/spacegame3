@@ -1,0 +1,66 @@
+[gd_scene load_steps=12 format=3 uid="uid://d1n8plgg8prm8"]
+
+[ext_resource type="Script" uid="uid://babvd0fap3gdq" path="res://scripts/enemy_7.gd" id="1_1cve1"]
+[ext_resource type="Texture2D" uid="uid://7gym0vjlq5hu" path="res://assets/enemy/elite_enemy/2/Boss_ship1.png" id="1_jwy4i"]
+[ext_resource type="Texture2D" uid="uid://cdem2m8vyi0gr" path="res://assets/enemy/bosses/exhaust/boss2/Level7_Turbo_001.png" id="2_64bn5"]
+[ext_resource type="PackedScene" uid="uid://divjny82w8yty" path="res://scenes/death_explosion.tscn" id="2_ef5vn"]
+[ext_resource type="Texture2D" uid="uid://t8gnrikgpeg1" path="res://assets/enemy/bosses/exhaust/boss2/Level7_Turbo_003.png" id="3_1cve1"]
+[ext_resource type="PackedScene" uid="uid://2cp7mkucw1cr" path="res://scenes/enemy_laser.tscn" id="3_dnx2c"]
+[ext_resource type="Texture2D" uid="uid://c8pa1bjulm4u3" path="res://assets/enemy/bosses/exhaust/boss2/Level7_Turbo_004.png" id="4_ef5vn"]
+[ext_resource type="PackedScene" uid="uid://dndke4c4h43f8" path="res://scenes/enemyhomingbullet.tscn" id="4_v5pa0"]
+[ext_resource type="Texture2D" uid="uid://c7w4wluq8dxei" path="res://assets/enemy/bosses/exhaust/boss2/Level7_Turbo_005.png" id="5_dnx2c"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_64bn5"]
+radius = 45.0
+height = 138.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v5pa0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_64bn5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1cve1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ef5vn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dnx2c")
+}],
+"loop": true,
+"name": &"exhaust",
+"speed": 15.0
+}]
+
+[node name="enemy7" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 2
+script = ExtResource("1_1cve1")
+death_animation_scene = ExtResource("2_ef5vn")
+normal_bullet_scene = ExtResource("3_dnx2c")
+homing_bullet_scene = ExtResource("4_v5pa0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_jwy4i")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_64bn5")
+
+[node name="BulletSpawn1" type="Node2D" parent="."]
+position = Vector2(-62, 0)
+
+[node name="BulletSpawn2" type="Node2D" parent="."]
+position = Vector2(-28, -33)
+
+[node name="BulletSpawn3" type="Node2D" parent="."]
+position = Vector2(-28, 30)
+
+[node name="Exhaust" type="AnimatedSprite2D" parent="."]
+z_index = -1
+position = Vector2(60, 1)
+sprite_frames = SubResource("SpriteFrames_v5pa0")
+animation = &"exhaust"
+autoplay = "exhaust"

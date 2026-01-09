@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dw2p8f653avv2"]
+[gd_scene load_steps=23 format=3 uid="uid://dw2p8f653avv2"]
 
 [ext_resource type="Texture2D" uid="uid://nrn1osh04ht5" path="res://assets/background/forest 1920x1080/forest_sky.png" id="1_kayp2"]
 [ext_resource type="Script" uid="uid://bg6ib4nrexb48" path="res://scripts/debugcanvas.gd" id="1_svo7y"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bpkiveafyhfog" path="res://scenes/enemy_3.tscn" id="14_i54yb"]
 [ext_resource type="PackedScene" uid="uid://deruu8hgkc3j8" path="res://scenes/enemy_4.tscn" id="15_pleq2"]
 [ext_resource type="PackedScene" uid="uid://c7gqn3pkx6gpp" path="res://scenes/enemy_6.tscn" id="16_1xtxu"]
+[ext_resource type="PackedScene" uid="uid://d1n8plgg8prm8" path="res://scenes/enemy_7.tscn" id="17_wg4p5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o7ao6"]
 atlas = ExtResource("9_5ph7u")
@@ -157,6 +158,9 @@ top_spawn_points = Array[Vector2]([Vector2(1640, 116), Vector2(1792, 393), Vecto
 right_corners = Array[Vector2]([Vector2(1820, 130), Vector2(1750, 130), Vector2(1820, 160), Vector2(1750, 160), Vector2(1780, 140), Vector2(1850, 950), Vector2(1750, 950), Vector2(1750, 900), Vector2(1850, 900), Vector2(1785, 943)])
 back_line_points = Array[Vector2]([Vector2(1820, 488), Vector2(1803, 877), Vector2(1818, 177), Vector2(1813, 632), Vector2(1801, 717), Vector2(1820, 347)])
 front_line_points = Array[Vector2]([Vector2(1544, 741), Vector2(1565, 660), Vector2(1580, 559), Vector2(1580, 436), Vector2(1572, 345), Vector2(1537, 264)])
+
+[node name="enemy7" parent="." instance=ExtResource("17_wg4p5")]
+position = Vector2(1796, 536)
 
 [connection signal="pressed" from="debugcanvas/respawnbutton" to="debugcanvas" method="_on_respawnbutton_pressed"]
 [connection signal="pressed" from="debugcanvas/damageshieldbutton" to="debugcanvas" method="_on_damageshieldbutton_pressed"]

@@ -3,7 +3,7 @@ extends Node2D
 # ==========================
 # --- Spawner Toggle ---
 # ==========================
-@export var spawner_enabled := true
+@export var spawner_enabled := false
 
 # ==========================
 # --- Enemy Scenes ---
