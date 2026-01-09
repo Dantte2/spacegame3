@@ -6,7 +6,7 @@ extends Node2D
 # --- Enemy Unlock Times ---
 # ==========================
 # Each index corresponds to an enemy (0 = Enemy1, 1 = Enemy2, etc.)
-@export var enemy_unlock_times: Array[float] = [0, 5, 10, 15, 20, 25]  # seconds
+@export var enemy_unlock_times: Array[float] = [0, 5, 10, 15, 10, 0]  # seconds
 
 func _ready():
     # Start a coroutine for each enemy

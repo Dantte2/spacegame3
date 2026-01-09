@@ -13,7 +13,7 @@ extends Node2D
 # ==========================
 # --- Max on Screen Per Enemy ---
 # ==========================
-@export var max_on_screen: Array[int] = [4, 2, 1, 2, 1, 0]
+@export var max_on_screen: Array[int] = [4, 2, 1, 2, 1, 1]
 
 # ==========================
 # --- Total Spawn Limits Per Enemy (-1 = unlimited) ---
