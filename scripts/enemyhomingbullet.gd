@@ -1,59 +1,89 @@
 extends CharacterBody2D
 
-@export var speed: float = 750.0
-@export var turn_speed: float = 5.0       # How fast the bullet turns toward the target (radians/sec)
-@export var damage_to_shield: int = 1
-@export var damage_to_health: int = 1
+# ==========================
+# --- Movement ---
+# ==========================
+@export var speed: float = 750
+@export var homing_delay: float = 0.5
 
-var target: Node = null
+# ==========================
+# --- Targeting ---
+# ==========================
+var target: Node2D = null
+var homing_enabled := false
 
+# ==========================
+# --- Initial barrel direction ---
+# ==========================
+var initial_direction: Vector2 = Vector2.LEFT  # to be set by spawner
+
+# ==========================
+# --- Ready ---
+# ==========================
 func _ready():
-    # Find the player (assuming it is in group "player")
-    var players = get_tree().get_nodes_in_group("player")
-    if players.size() > 0:
-        target = players[0]
-    
-    # Initial velocity pointing toward the target (or left if no target)
-    if target:
-        velocity = (target.global_position - global_position).normalized() * speed
-        rotation = velocity.angle()
-    else:
-        velocity = Vector2.LEFT * speed
-        rotation = velocity.angle()
+	# Fly initially in barrel direction
+	velocity = initial_direction.normalized() * speed
+	rotation = velocity.angle()
 
+	# Find player if target not set
+	if target == null:
+		var players = get_tree().get_nodes_in_group("player")
+		if players.size() > 0:
+			target = players[0]
 
+	# Enable homing after delay
+	_enable_homing_after_delay()
+
+	# Optional: destroy after lifetime
+	_destroy_after_lifetime()
+
+func _enable_homing_after_delay() -> void:
+	await get_tree().create_timer(homing_delay).timeout
+	homing_enabled = true
+
+func _destroy_after_lifetime() -> void:
+	await get_tree().create_timer(5.0).timeout
+	queue_free()
+
+# ==========================
+# --- Physics ---
+# ==========================
 func _physics_process(delta):
-    if target:
-        var dir_to_target = (target.global_position - global_position).normalized()
-        velocity = velocity.lerp(dir_to_target * speed, turn_speed * delta)
-    else:
-        velocity = velocity.normalized() * speed
+	# Homing adjustment
+	if homing_enabled and target and target.is_inside_tree():
+		var to_target = (target.global_position - global_position).normalized()
+		var angle_to_target = velocity.angle_to(to_target)
 
-    # Move bullet and detect collision
-    var collision = move_and_collide(velocity * delta)
-    if collision:
-        _handle_hit(collision.get_collider())
-        return  # Stop processing after hitting
+		var max_turn = 0.5 * delta  # can expose as export
+		angle_to_target = clamp(angle_to_target, -max_turn, max_turn)
 
-    rotation = velocity.angle()
+		if abs(angle_to_target) > 0.001:
+			velocity = velocity.rotated(angle_to_target)
 
-func _on_body_entered(body):
-    _handle_hit(body)
+	# Maintain constant speed
+	velocity = velocity.normalized() * speed
 
-func _on_area_entered(area):
-    _handle_hit(area)
+	# Move
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		_handle_hit(collision.get_collider())
 
+	# Rotate sprite to match velocity
+	rotation = velocity.angle()
 
+# ==========================
+# --- Collision ---
+# ==========================
 func _handle_hit(target_node):
-    var player = target_node
-    while player and not player.has_method("take_damage"):
-        player = player.get_parent()
-    if not player:
-        return
+	var player = target_node
+	while player and not player.has_method("take_damage"):
+		player = player.get_parent()
+	if not player:
+		return
 
-    if player.shield > 0:
-        player.apply_shield_damage(damage_to_shield, global_position)
-    else:
-        player.take_damage(damage_to_health)
+	if player.shield > 0:
+		player.apply_shield_damage(1, global_position)
+	else:
+		player.take_damage(1)
 
-    queue_free()
+	queue_free()
