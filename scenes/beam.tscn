@@ -57,6 +57,7 @@ color = Color(2, 0, 0.012, 1)
 color_ramp = SubResource("GradientTexture1D_8wlve")
 
 [node name="LaserBeam2D" type="RayCast2D"]
+scale = Vector2(0.5, 0.5)
 target_position = Vector2(1920, 0)
 collide_with_areas = true
 script = ExtResource("1_5ijbd")

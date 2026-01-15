@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var speed := 750.0
-@export var homing_delay := 0.1
+@export var homing_delay := 0.0
 @export var turn_speed := 1.0  # radians per second
 
 var target: Node2D = null

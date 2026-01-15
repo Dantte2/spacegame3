@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d1n8plgg8prm8"]
+[gd_scene load_steps=13 format=3 uid="uid://d1n8plgg8prm8"]
 
 [ext_resource type="Script" uid="uid://babvd0fap3gdq" path="res://scripts/enemy_7.gd" id="1_1cve1"]
 [ext_resource type="Texture2D" uid="uid://7gym0vjlq5hu" path="res://assets/enemy/elite_enemy/2/Boss_ship1.png" id="1_jwy4i"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c8pa1bjulm4u3" path="res://assets/enemy/bosses/exhaust/boss2/Level7_Turbo_004.png" id="4_ef5vn"]
 [ext_resource type="PackedScene" uid="uid://dndke4c4h43f8" path="res://scenes/enemyhomingbullet.tscn" id="4_v5pa0"]
 [ext_resource type="Texture2D" uid="uid://c7w4wluq8dxei" path="res://assets/enemy/bosses/exhaust/boss2/Level7_Turbo_005.png" id="5_dnx2c"]
+[ext_resource type="PackedScene" uid="uid://drvu6j5af1iev" path="res://scenes/enemy_7_decoy.tscn" id="5_ri03v"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_64bn5"]
 radius = 45.0
@@ -40,6 +41,7 @@ script = ExtResource("1_1cve1")
 death_animation_scene = ExtResource("2_ef5vn")
 normal_bullet_scene = ExtResource("3_dnx2c")
 homing_bullet_scene = ExtResource("4_v5pa0")
+hologram_scene = ExtResource("5_ri03v")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_jwy4i")

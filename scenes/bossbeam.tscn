@@ -1,0 +1,79 @@
+[gd_scene load_steps=13 format=3 uid="uid://cyd01haa2xdda"]
+
+[ext_resource type="Script" uid="uid://db16se8ieqr06" path="res://scripts/bossbeam.gd" id="1_iddp3"]
+[ext_resource type="PackedScene" uid="uid://cy5j36fqnhgwm" path="res://scenes/beam_particles_2d.tscn" id="2_wxqit"]
+[ext_resource type="Texture2D" uid="uid://ceinekktnlpup" path="res://assets/particles/spark/lightning_skill6_frame1.png" id="3_jdakk"]
+[ext_resource type="Texture2D" uid="uid://dsc5eilq81hrc" path="res://assets/particles/spark/lightning_skill6_frame2.png" id="4_rht86"]
+[ext_resource type="Texture2D" uid="uid://bqvq4vw2vvl4h" path="res://assets/particles/spark/lightning_skill6_frame3.png" id="5_3mkfn"]
+[ext_resource type="Texture2D" uid="uid://don6b1cvj0brd" path="res://assets/particles/spark/lightning_skill6_frame4.png" id="6_rguyq"]
+[ext_resource type="Texture2D" uid="uid://c2gw5b7virqnb" path="res://assets/particles/spark/lightning_skill6_frame5.png" id="7_yt1vw"]
+[ext_resource type="Texture2D" uid="uid://1x7xx4fp7xc6" path="res://assets/particles/spark/lightning_skill6_frame6.png" id="8_igjyv"]
+[ext_resource type="Texture2D" uid="uid://catijw27j6i5q" path="res://assets/particles/spark/lightning_skill6_frame7.png" id="9_cph3t"]
+[ext_resource type="Texture2D" uid="uid://c40s7t6tm56dd" path="res://assets/particles/spark/lightning_skill6_frame8.png" id="10_v2pvb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iddp3"]
+size = Vector2(10, 1111)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nqsfp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_jdakk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rht86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3mkfn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_rguyq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_yt1vw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_igjyv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_cph3t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_v2pvb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="bossbeam" type="Node2D"]
+script = ExtResource("1_iddp3")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, -10, 0, 1090)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 539.5)
+shape = SubResource("RectangleShape2D_iddp3")
+
+[node name="BeamParticles2D" parent="." instance=ExtResource("2_wxqit")]
+position = Vector2(0, 429)
+rotation = 1.5707964
+scale = Vector2(1.2902663, 0.32615036)
+emitting = true
+amount = 20
+one_shot = false
+trail_enabled = false
+
+[node name="Spark" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2.2888184e-05, 508.13782)
+rotation = 1.5707964
+scale = Vector2(8.939653, 0.4841995)
+sprite_frames = SubResource("SpriteFrames_nqsfp")
+frame_progress = 0.7688054

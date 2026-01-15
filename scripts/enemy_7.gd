@@ -15,8 +15,8 @@ var state := State.ATTACK
 # --- Health ---
 # ==========================
 @export var max_health := 250
-var health := 0
 @export var death_animation_scene: PackedScene
+var health := 0
 
 # ==========================
 # --- Player ---
@@ -34,26 +34,27 @@ var player: CharacterBody2D
 @export var normal_bullet_scene: PackedScene
 @export var homing_bullet_scene: PackedScene
 
-# Normal bullets
 @export var fire_rate := 0.6
 @export var burst_count := 5
 @export var burst_delay := 0.1
 @export var bullet_spread := 6.0
 @export var normal_bullet_speed := 1300.0
 
-# Homing bullets
 @export var homing_bullet_count := 2
 @export var homing_bullet_speed := 1200.0
 @export var homing_barrel_angles := [20, -20]
 @export var homing_cooldown := 2.5
 
 # ==========================
-# --- Reposition ---
+# --- Reposition / Decoy ---
 # ==========================
 @export var reposition_speed := 1200.0
+@export var reposition_delay := 0.8
 @export var min_distance := 900.0
 @export var max_distance := 1200.0
-@export var reposition_delay := 0.8
+
+@export var hologram_scene: PackedScene
+@export var second_reposition_delay := 0.50
 
 var target_pos := Vector2.ZERO
 
@@ -139,44 +140,47 @@ func handle_reposition(_delta):
     var to_target = target_pos - global_position
     var dist = to_target.length()
 
-    if dist < 15:
+    if dist < 15.0:
+        velocity = Vector2.ZERO
         state = State.ATTACK
         reposition_timer = reposition_delay
-        velocity = Vector2.ZERO
         return
 
     var speed_factor = clamp(dist / 300.0, 0.25, 1.0)
     velocity = to_target.normalized() * reposition_speed * speed_factor
 
 # ==========================
-# --- Reposition Target ---
+# --- Reposition Logic ---
 # ==========================
 func start_reposition():
+    if state == State.REPOSITION:
+        return
+
     state = State.REPOSITION
+
+    choose_reposition_target()
+    await get_tree().create_timer(second_reposition_delay).timeout
     choose_reposition_target()
 
+
 func choose_reposition_target():
+    spawn_hologram()
+
     var vp_rect = get_viewport().get_visible_rect()
     var padding := 60
 
-    # Predict player slightly
     var predicted_player_pos = player.global_position
     if player is CharacterBody2D:
         predicted_player_pos += player.velocity * 0.4
 
-    # --- X: always in front of player ---
     var forward_dir = sign(player.scale.x)
     if forward_dir == 0:
         forward_dir = 1
 
     var x_dist = randf_range(min_distance, max_distance)
     var target_x = predicted_player_pos.x + forward_dir * x_dist
+    var target_y = predicted_player_pos.y + randf_range(-250.0, 250.0)
 
-    # --- Y: free vertical movement ---
-    var y_offset = randf_range(-250.0, 250.0)
-    var target_y = predicted_player_pos.y + y_offset
-
-    # Clamp to screen
     target_x = clamp(
         target_x,
         vp_rect.position.x + padding,
@@ -191,6 +195,20 @@ func choose_reposition_target():
 
     target_pos = Vector2(target_x, target_y)
 
+# ==========================
+# --- Hologram ---
+# ==========================
+func spawn_hologram():
+    if not hologram_scene:
+        return
+
+    var holo = hologram_scene.instantiate()
+    holo.global_position = global_position
+    holo.rotation = rotation
+    holo.scale = scale
+    holo.z_index = z_index - 1
+
+    get_tree().current_scene.add_child(holo)
 
 # ==========================
 # --- Normal Bullet ---
@@ -200,8 +218,10 @@ func shoot_normal_bullet():
         return
 
     var spawn = $BulletSpawn1
-    var spread = deg_to_rad(bullet_spread)
-    var angle_offset = randf_range(-spread / 2, spread / 2)
+    var angle_offset = randf_range(
+        -deg_to_rad(bullet_spread) * 0.5,
+        deg_to_rad(bullet_spread) * 0.5
+    )
 
     var bullet = normal_bullet_scene.instantiate()
     bullet.global_position = spawn.global_position
@@ -216,10 +236,7 @@ func shoot_normal_bullet():
 func shoot_homing_bullets():
     var spawns = [$BulletSpawn2, $BulletSpawn3]
 
-    for i in range(homing_bullet_count):
-        if i >= spawns.size():
-            continue
-
+    for i in range(min(homing_bullet_count, spawns.size())):
         var spawn = spawns[i]
         if not spawn or not homing_bullet_scene:
             continue
@@ -234,7 +251,7 @@ func shoot_homing_bullets():
         get_tree().current_scene.add_child(hb)
 
 # ==========================
-# --- Damage ---
+# --- Damage / Death ---
 # ==========================
 func take_damage(amount: int):
     health -= amount

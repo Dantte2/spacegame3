@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://drvu6j5af1iev"]
+
+[ext_resource type="Texture2D" uid="uid://7gym0vjlq5hu" path="res://assets/enemy/elite_enemy/2/Boss_ship1.png" id="1_1fgdj"]
+[ext_resource type="Script" uid="uid://cq4c8qt43rd67" path="res://scripts/enemy_7_decoy.gd" id="1_aqxa4"]
+
+[node name="enemy7decoy" type="Node2D"]
+script = ExtResource("1_aqxa4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_1fgdj")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cop8awndxybpd"]
+
+[ext_resource type="Script" uid="uid://dfkb2yr6nrtjl" path="res://scripts/missilevisual.gd" id="1_0h1br"]
+[ext_resource type="Texture2D" uid="uid://bw2bep4cfed8h" path="res://assets/projectiles/bullets/13.png" id="2_0h1br"]
+
+[node name="missilevisual" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_0h1br")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_0h1br")

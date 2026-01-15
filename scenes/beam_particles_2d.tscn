@@ -29,7 +29,7 @@ tangential_accel_max = 99.99999
 scale_min = 0.29999998
 scale_max = 0.29999998
 scale_curve = SubResource("CurveTexture_xqf7g")
-color = Color(2, 0, 0.012, 1)
+color = Color(2, 0, 2.5, 1)
 color_ramp = SubResource("GradientTexture1D_twths")
 
 [node name="MuzzleFlash" type="GPUParticles2D"]
