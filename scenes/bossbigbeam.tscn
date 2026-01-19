@@ -248,22 +248,20 @@ size = Vector2(1831, 180)
 script = ExtResource("1_my53w")
 
 [node name="beamsprites" type="Node2D" parent="."]
-position = Vector2(9, 571)
 
 [node name="start" type="Sprite2D" parent="beamsprites"]
-position = Vector2(1830, -1.9999696)
 scale = Vector2(1, 3.578)
 texture = ExtResource("1_4bm5c")
 flip_h = true
 
 [node name="middle" type="Sprite2D" parent="beamsprites"]
-position = Vector2(921, -2.0000002)
+position = Vector2(-906, 0)
 scale = Vector2(55.312496, 3.5781248)
 texture = ExtResource("2_r41cp")
 flip_h = true
 
 [node name="end" type="Sprite2D" parent="beamsprites"]
-position = Vector2(12.000004, -1.9999999)
+position = Vector2(-1815, 4.7683716e-07)
 scale = Vector2(1, 3.578)
 texture = ExtResource("3_wf8mq")
 flip_h = true
@@ -271,7 +269,7 @@ flip_h = true
 [node name="BeamFX" type="Sprite2D" parent="."]
 z_index = 1
 material = SubResource("ShaderMaterial_35n67")
-position = Vector2(909, 575.00006)
+position = Vector2(-926, -1.9999999)
 scale = Vector2(31.144068, 4.423729)
 texture = ExtResource("5_13o24")
 flip_h = true
@@ -283,13 +281,10 @@ libraries = {
 autoplay = "beamstart"
 speed_scale = 0.5
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(961, 541)
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(920.5, 569)
+position = Vector2(-915, 2)
 shape = SubResource("RectangleShape2D_my53w")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
