@@ -1,58 +1,77 @@
 extends Area2D
 
+# ====================
+# EXPORTS
+# ====================
 @export var speed: float = 1000.0
-var velocity: Vector2 = Vector2.RIGHT  # direction bullet moves
-
 @export var damage_to_shield: int = 100
 @export var damage_to_health: int = 1
 
+# NEW: color control (orange default)
+@export var bullet_color: Color = Color(1.0, 0.55, 0.15, 1.0)
+
+# ====================
+# INTERNAL
+# ====================
+var velocity: Vector2 = Vector2.ZERO
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-func _ready():
+# ====================
+# READY
+# ====================
+func _ready() -> void:
     randomize()
 
-    # ROTATE BULLET TO MATCH DIRECTION
+    # Rotate bullet to match direction
     if velocity != Vector2.ZERO:
         rotation = velocity.angle()
 
-    # Randomize starting frame
+    # Sprite setup
     if sprite:
-        var total_frames = sprite.sprite_frames.get_frame_count(sprite.animation)
+        var total_frames := sprite.sprite_frames.get_frame_count(sprite.animation)
         sprite.frame = randi() % total_frames
         sprite.play()
-        sprite.modulate = Color(1.0, 0.55, 0.15, 1.0)
+        sprite.modulate = bullet_color
 
     collision_layer = 2
     collision_mask = 1
 
-    connect("area_entered", Callable(self, "_on_area_entered"))
-    connect("body_entered", Callable(self, "_on_body_entered"))
+    area_entered.connect(_on_area_entered)
+    body_entered.connect(_on_body_entered)
 
-func _physics_process(delta):
-    # Move bullet in its velocity direction
-    position -= velocity.normalized() * speed * delta
+# ====================
+# PHYSICS
+# ====================
+func _physics_process(delta: float) -> void:
+    position += velocity * speed * delta
 
-    # Rotate to match velocity
     if velocity != Vector2.ZERO:
         rotation = velocity.angle()
 
-func set_velocity(dir: Vector2):
+# ====================
+# API
+# ====================
+func set_velocity(dir: Vector2) -> void:
     velocity = dir.normalized()
 
-func _on_area_entered(area):
+# ====================
+# COLLISION
+# ====================
+func _on_area_entered(area: Area2D) -> void:
     _handle_hit(area)
 
-func _on_body_entered(body):
+func _on_body_entered(body: Node) -> void:
     _handle_hit(body)
 
-func _handle_hit(target):
-    var player = target
+func _handle_hit(target: Node) -> void:
+    var player := target
     while player and not player.has_method("take_damage"):
         player = player.get_parent()
+
     if not player:
         return
 
-    # Damage applies to shield first
     if player.shield > 0:
         player.apply_shield_damage(damage_to_shield, global_position)
     else:

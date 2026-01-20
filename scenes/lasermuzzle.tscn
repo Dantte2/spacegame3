@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://c7pvf43xjk7a7"]
+
+[ext_resource type="Texture2D" uid="uid://b0yp1lgv6pnba" path="res://assets/particles/glowing_circle.png" id="1_xmpar"]
+
+[sub_resource type="Curve" id="Curve_6ocay"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.34090906, 0.68539333), 0.0, 0.0, 0, 0, Vector2(0.6666667, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_i35iy"]
+curve = SubResource("Curve_6ocay")
+
+[sub_resource type="Curve" id="Curve_xmpar"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.86363643, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_6ocay"]
+curve = SubResource("Curve_xmpar")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xmpar"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 100.0
+direction = Vector3(0, 0, 0)
+radial_velocity_min = -300.00003
+radial_velocity_max = -30.000021
+radial_velocity_curve = SubResource("CurveTexture_i35iy")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_6ocay")
+color = Color(2.7650003, 1.2893533, 2.2268844, 1)
+
+[node name="lasermuzzle" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 20
+texture = ExtResource("1_xmpar")
+lifetime = 2.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_xmpar")

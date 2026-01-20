@@ -34,7 +34,7 @@ float noise(vec2 uv) {
 
 float fbm(vec2 n) {
     float total = 0.0, amp = 1.0;
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 3; i++) {
         total += noise(n) * amp;
         n += n;
         amp *= 0.5;

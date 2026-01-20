@@ -269,8 +269,8 @@ flip_h = true
 [node name="BeamFX" type="Sprite2D" parent="."]
 z_index = 1
 material = SubResource("ShaderMaterial_35n67")
-position = Vector2(-926, -1.9999999)
-scale = Vector2(31.144068, 4.423729)
+position = Vector2(-923.99994, 6.500001)
+scale = Vector2(31.144068, 3.0677967)
 texture = ExtResource("5_13o24")
 flip_h = true
 
